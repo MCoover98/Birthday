@@ -74,23 +74,34 @@
 
         function fakeStartupEffect() {
             console.clear();
-            console.log("%cSYSTEM BOOTING...", "color: cyan; font-size: 16px;");
+            consoleTypingEffect("SYSTEM BOOTING...", "cyan");
             setTimeout(() => {
-                console.log("%cLOADING SECURE GAME ENVIRONMENT...", "color: yellow; font-size: 16px;");
-            }, 1000);
+                consoleTypingEffect("LOADING SECURE GAME ENVIRONMENT...", "yellow");
+            }, 1500);
             setTimeout(() => {
-                console.log("%cACCESS GRANTED.", "color: green; font-size: 18px;");
-            }, 2000);
-            setTimeout(() => {
-                alert("Initializing secure connection...");
-            }, 2500);
-            setTimeout(() => {
-                alert("Decrypting game data...");
-            }, 4000);
-            setTimeout(() => {
-                alert("Welcome, Player!");
-                document.getElementById("game-container").classList.remove("hidden");
-            }, 5000);
+                consoleTypingEffect("ACCESS GRANTED.", "green", () => {
+                    setTimeout(() => alert("Initializing secure connection..."), 1000);
+                    setTimeout(() => alert("Decrypting game data..."), 2500);
+                    setTimeout(() => {
+                        alert("Welcome, Player! Click OK to start!");
+                        document.getElementById("game-container").classList.remove("hidden");
+                    }, 4000);
+                });
+            }, 3000);
+        }
+
+        function consoleTypingEffect(text, color, callback) {
+            let index = 0;
+            function type() {
+                if (index < text.length) {
+                    console.log(`%c${text.substring(0, index + 1)}`, `color: ${color}; font-size: 16px;`);
+                    index++;
+                    setTimeout(type, 50);
+                } else if (callback) {
+                    callback();
+                }
+            }
+            type();
         }
 
         function startGame() {
@@ -111,7 +122,7 @@
                     document.getElementById(`puzzle${puzzle + 1}`).classList.remove("hidden");
                 }
                 if (puzzle === 2) {
-                    setTimeout(fakeHackedConsoleEffect, 1000); // Auto-trigger console effect
+                    setTimeout(fakeHackedConsoleEffect, 1000);
                 }
             } else {
                 alert("❌ Incorrect! Try again.");
@@ -120,29 +131,17 @@
 
         function fakeHackedConsoleEffect() {
             console.clear();
-            console.log("%cACCESS GRANTED...", "color: green; font-size: 18px;");
+            consoleTypingEffect("ACCESS GRANTED...", "green");
             setTimeout(() => {
-                console.log("%cDECODING MESSAGE...", "color: yellow; font-size: 16px;");
+                consoleTypingEffect("DECODING MESSAGE...", "yellow");
             }, 1000);
             setTimeout(() => {
-                console.log("%cWelcome to the secret mission!", "color: cyan; font-size: 18px;");
+                consoleTypingEffect("Welcome to the secret mission!", "cyan");
             }, 2000);
             setTimeout(() => {
-                consoleTypingEffect("Every Saturday is our time to code, jam, or create together! ❤️");
+                consoleTypingEffect("Every Saturday is our time to code, jam, or create together! ❤️", "white");
+                launchConfetti();
             }, 3000);
-        }
-
-        function consoleTypingEffect(message) {
-            let index = 0;
-            function type() {
-                if (index < message.length) {
-                    console.log(message.substring(0, index + 1));
-                    index++;
-                    setTimeout(type, 100);
-                }
-            }
-            type();
-            launchConfetti();
         }
 
         function launchConfetti() {
@@ -159,3 +158,4 @@
     </script>
 </body>
 </html>
+
