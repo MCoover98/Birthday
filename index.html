@@ -41,8 +41,8 @@
         }
     </style>
 </head>
-<body>
-    <div id="game-container">
+<body onload="fakeStartupEffect()">
+    <div id="game-container" class="hidden">
         <h1>🎉 Welcome to Your Birthday Coding Quest! 🎂</h1>
         <p>Solve the puzzles to unlock your gift!</p>
         <button onclick="startGame()">Start Game</button>
@@ -72,6 +72,27 @@
     <script>
         let currentPuzzle = 0;
 
+        function fakeStartupEffect() {
+            console.clear();
+            console.log("%cSYSTEM BOOTING...", "color: cyan; font-size: 16px;");
+            setTimeout(() => {
+                console.log("%cLOADING SECURE GAME ENVIRONMENT...", "color: yellow; font-size: 16px;");
+            }, 1000);
+            setTimeout(() => {
+                console.log("%cACCESS GRANTED.", "color: green; font-size: 18px;");
+            }, 2000);
+            setTimeout(() => {
+                alert("Initializing secure connection...");
+            }, 2500);
+            setTimeout(() => {
+                alert("Decrypting game data...");
+            }, 4000);
+            setTimeout(() => {
+                alert("Welcome, Player!");
+                document.getElementById("game-container").classList.remove("hidden");
+            }, 5000);
+        }
+
         function startGame() {
             document.getElementById("game-container").classList.add("hidden");
             document.getElementById("puzzle1").classList.remove("hidden");
@@ -88,8 +109,9 @@
                 document.getElementById(`puzzle${puzzle}`).classList.add("hidden");
                 if (puzzle < 3) {
                     document.getElementById(`puzzle${puzzle + 1}`).classList.remove("hidden");
-                } else {
-                    fakeHackedConsoleEffect();
+                }
+                if (puzzle === 2) {
+                    setTimeout(fakeHackedConsoleEffect, 1000); // Auto-trigger console effect
                 }
             } else {
                 alert("❌ Incorrect! Try again.");
