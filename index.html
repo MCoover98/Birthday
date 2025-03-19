@@ -25,6 +25,20 @@
             margin: 10px;
             cursor: pointer;
         }
+        @keyframes confetti {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background: red;
+            opacity: 0.7;
+            animation: confetti 3s linear infinite;
+        }
     </style>
 </head>
 <body>
@@ -86,9 +100,22 @@
                 } else {
                     document.getElementById("final-message").classList.remove("hidden");
                     console.log("🎉 Every Saturday is our time to code, jam, or create together! ❤️");
+                    launchConfetti();
                 }
             } else {
                 alert("❌ Incorrect! Try again.");
+            }
+        }
+
+        function launchConfetti() {
+            for (let i = 0; i < 100; i++) {
+                let confettiPiece = document.createElement("div");
+                confettiPiece.className = "confetti";
+                confettiPiece.style.left = Math.random() * 100 + "vw";
+                confettiPiece.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                confettiPiece.style.animationDuration = Math.random() * 3 + 2 + "s";
+                document.body.appendChild(confettiPiece);
+                setTimeout(() => confettiPiece.remove(), 5000);
             }
         }
     </script>
