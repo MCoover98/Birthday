@@ -49,25 +49,24 @@
     </div>
 
     <div id="puzzle1" class="hidden">
-        <h2>🧩 Puzzle 1: Solve the Riddle</h2>
-        <p>I am full of bugs, yet people still love me. What am I?</p>
-        <button onclick="checkAnswer(1, 'code')">A) Code</button>
-        <button onclick="checkAnswer(1, 'swiss cheese')">B) Swiss Cheese</button>
-        <button onclick="checkAnswer(1, 'phone')">C) Phone</button>
+        <h2>🎵 Puzzle 1: Solve the Music Riddle</h2>
+        <p>I speak without a mouth and hear without ears. I am created in a studio but live in your soul. What am I?</p>
+        <button onclick="checkAnswer(1, 'music')">A) Music</button>
+        <button onclick="checkAnswer(1, 'echo')">B) Echo</button>
+        <button onclick="checkAnswer(1, 'silence')">C) Silence</button>
     </div>
 
     <div id="puzzle2" class="hidden">
-        <h2>🔐 Puzzle 2: Decode This Message</h2>
-        <p><b>L fdph, L vdz, L frqtxhuhg!</b></p>
-        <p>Hint: Use a Caesar cipher shift of -3.</p>
-        <input type="text" id="cipher-answer">
-        <button onclick="checkAnswer(2, document.getElementById('cipher-answer').value)">Submit</button>
+        <h2>📜 Puzzle 2: Programming History</h2>
+        <p>Who is considered the first computer programmer?</p>
+        <button onclick="checkAnswer(2, 'ada lovelace')">A) Alan Turing</button>
+        <button onclick="checkAnswer(2, 'ada lovelace')">B) Ada Lovelace</button>
+        <button onclick="checkAnswer(2, 'charles babbage')">C) Charles Babbage</button>
     </div>
 
-    <div id="final-message" class="hidden">
-        <h2>🎁 Congratulations!</h2>
-        <p>You found your gift! But there's one more surprise...</p>
-        <p>Check the browser console (F12 -> Console) for your final message.</p>
+    <div id="puzzle3" class="hidden">
+        <h2>🔐 Puzzle 3: Console Challenge</h2>
+        <p>Open the browser console (F12 -> Console) to continue!</p>
     </div>
 
     <script>
@@ -81,23 +80,47 @@
 
         function checkAnswer(puzzle, answer) {
             const correctAnswers = {
-                1: "code",
-                2: "i came i saw i conquered"
+                1: "music",
+                2: "ada lovelace"
             };
             
             if (answer.toLowerCase() === correctAnswers[puzzle]) {
                 document.getElementById(`puzzle${puzzle}`).classList.add("hidden");
-                if (puzzle < 2) {
+                if (puzzle < 3) {
                     document.getElementById(`puzzle${puzzle + 1}`).classList.remove("hidden");
                 } else {
-                    document.getElementById("final-message").classList.remove("hidden");
-                    console.log("🎉 Every Saturday is our time to code, jam, or create together! ❤️");
-                    launchConfetti();
-                    consoleLogSurprise();
+                    fakeHackedConsoleEffect();
                 }
             } else {
                 alert("❌ Incorrect! Try again.");
             }
+        }
+
+        function fakeHackedConsoleEffect() {
+            console.clear();
+            console.log("%cACCESS GRANTED...", "color: green; font-size: 18px;");
+            setTimeout(() => {
+                console.log("%cDECODING MESSAGE...", "color: yellow; font-size: 16px;");
+            }, 1000);
+            setTimeout(() => {
+                console.log("%cWelcome to the secret mission!", "color: cyan; font-size: 18px;");
+            }, 2000);
+            setTimeout(() => {
+                consoleTypingEffect("Every Saturday is our time to code, jam, or create together! ❤️");
+            }, 3000);
+        }
+
+        function consoleTypingEffect(message) {
+            let index = 0;
+            function type() {
+                if (index < message.length) {
+                    console.log(message.substring(0, index + 1));
+                    index++;
+                    setTimeout(type, 100);
+                }
+            }
+            type();
+            launchConfetti();
         }
 
         function launchConfetti() {
@@ -111,13 +134,6 @@
                 setTimeout(() => confettiPiece.remove(), 5000);
             }
         }
-
-        function consoleLogSurprise() {
-            console.log("%c🎉 CONGRATULATIONS! 🎉", "color: green; font-size: 20px; font-weight: bold;");
-            console.log("%cYou solved the puzzle! Here is your final reward:", "color: blue; font-size: 16px;");
-            console.log("%cEvery Saturday is our time to code, jam, or create together! ❤️", "color: red; font-size: 18px;");
-        }
     </script>
 </body>
 </html>
-
