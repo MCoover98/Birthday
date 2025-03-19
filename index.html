@@ -58,12 +58,16 @@
 </head>
 <body onload="fakeStartupEffect()">
     <div id="terminal"></div>
-    <div id="game-container" class="hidden">
+    <div id="game-container">
         <h1>🎉 Welcome to Your Birthday Coding Quest! 🎂</h1>
         <p>Solve the puzzles to unlock your gift!</p>
         <button onclick="startGame()">Start Game</button>
     </div>
-
+    <div id="puzzle-container" class="hidden">
+        <h2>First Challenge: Who invented modern programming?</h2>
+        <p>Type the answer in the console (F12 > Console).</p>
+    </div>
+    
     <script>
         function fakeStartupEffect() {
             let messages = [
@@ -83,16 +87,17 @@
                     terminal.appendChild(line);
                     index++;
                     setTimeout(typeMessage, 1000);
-                } else {
-                    setTimeout(() => alert("Initializing secure connection..."), 1000);
-                    setTimeout(() => alert("Decrypting game data..."), 2500);
-                    setTimeout(() => {
-                        alert("Welcome, Player! Click OK to start!");
-                        document.getElementById("game-container").classList.remove("hidden");
-                    }, 4000);
                 }
             }
             typeMessage();
+        }
+
+        function startGame() {
+            document.getElementById("game-container").classList.add("hidden");
+            document.getElementById("puzzle-container").classList.remove("hidden");
+            console.log("Welcome to your first challenge!");
+            console.log("Who invented modern programming?");
+            console.log("Type your answer below: (e.g., 'Ada Lovelace')");
         }
 
         function fakeHackedConsoleEffect() {
@@ -134,4 +139,3 @@
     </script>
 </body>
 </html>
-
