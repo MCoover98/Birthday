@@ -50,25 +50,18 @@
 
     <div id="puzzle1" class="hidden">
         <h2>🧩 Puzzle 1: Solve the Riddle</h2>
-        <p>I can be cracked, made, told, and played. What am I?</p>
-        <button onclick="checkAnswer(1, 'joke')">A) Joke</button>
-        <button onclick="checkAnswer(1, 'glass')">B) Glass</button>
-        <button onclick="checkAnswer(1, 'code')">C) Code</button>
+        <p>I am full of bugs, yet people still love me. What am I?</p>
+        <button onclick="checkAnswer(1, 'code')">A) Code</button>
+        <button onclick="checkAnswer(1, 'swiss cheese')">B) Swiss Cheese</button>
+        <button onclick="checkAnswer(1, 'phone')">C) Phone</button>
     </div>
 
     <div id="puzzle2" class="hidden">
-        <h2>🧮 Puzzle 2: Solve the Math Problem</h2>
-        <p>What is (7 * 8) + (100 // 5)?</p>
-        <input type="text" id="math-answer">
-        <button onclick="checkAnswer(2, document.getElementById('math-answer').value)">Submit</button>
-    </div>
-
-    <div id="puzzle3" class="hidden">
-        <h2>🔐 Puzzle 3: Decode This Message</h2>
+        <h2>🔐 Puzzle 2: Decode This Message</h2>
         <p><b>L fdph, L vdz, L frqtxhuhg!</b></p>
         <p>Hint: Use a Caesar cipher shift of -3.</p>
         <input type="text" id="cipher-answer">
-        <button onclick="checkAnswer(3, document.getElementById('cipher-answer').value)">Submit</button>
+        <button onclick="checkAnswer(2, document.getElementById('cipher-answer').value)">Submit</button>
     </div>
 
     <div id="final-message" class="hidden">
@@ -88,19 +81,19 @@
 
         function checkAnswer(puzzle, answer) {
             const correctAnswers = {
-                1: "joke",
-                2: "76",
-                3: "i came i saw i conquered"
+                1: "code",
+                2: "i came i saw i conquered"
             };
             
             if (answer.toLowerCase() === correctAnswers[puzzle]) {
                 document.getElementById(`puzzle${puzzle}`).classList.add("hidden");
-                if (puzzle < 3) {
+                if (puzzle < 2) {
                     document.getElementById(`puzzle${puzzle + 1}`).classList.remove("hidden");
                 } else {
                     document.getElementById("final-message").classList.remove("hidden");
                     console.log("🎉 Every Saturday is our time to code, jam, or create together! ❤️");
                     launchConfetti();
+                    consoleLogSurprise();
                 }
             } else {
                 alert("❌ Incorrect! Try again.");
@@ -118,6 +111,13 @@
                 setTimeout(() => confettiPiece.remove(), 5000);
             }
         }
+
+        function consoleLogSurprise() {
+            console.log("%c🎉 CONGRATULATIONS! 🎉", "color: green; font-size: 20px; font-weight: bold;");
+            console.log("%cYou solved the puzzle! Here is your final reward:", "color: blue; font-size: 16px;");
+            console.log("%cEvery Saturday is our time to code, jam, or create together! ❤️", "color: red; font-size: 18px;");
+        }
     </script>
 </body>
 </html>
+
