@@ -30,7 +30,7 @@
             50% { opacity: 0.8; }
             100% { opacity: 1; }
         }
-        #game-container {
+        #game-container, #secret-button {
             margin: 50px auto;
             width: 60%;
             padding: 20px;
@@ -54,20 +54,6 @@
             background: lime;
             color: black;
         }
-        @keyframes confetti {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-        }
-        .confetti {
-            position: fixed;
-            top: 0;
-            left: 50%;
-            width: 10px;
-            height: 10px;
-            background: red;
-            opacity: 0.7;
-            animation: confetti 3s linear infinite;
-        }
         @keyframes glitch {
             0% { transform: skew(0deg); }
             20% { transform: skew(10deg); }
@@ -79,9 +65,10 @@
         .glitch {
             animation: glitch 0.5s ease-in-out;
         }
-        .big-reveal {
-            font-size: 24px;
-            animation: flicker 0.05s infinite alternate;
+        .secret-promise {
+            font-size: 32px;
+            color: red;
+            animation: flicker 0.1s infinite alternate;
         }
     </style>
 </head>
@@ -93,6 +80,9 @@
         <button onclick="startGame()">Start Game</button>
     </div>
     <div id="puzzle-container" class="hidden"></div>
+    <div id="secret-button" class="hidden">
+        <button onclick="revealSecret()">Unlock the Secret Message</button>
+    </div>
     <script>
         let currentChallenge = 0;
         const challenges = [
@@ -133,27 +123,27 @@
                     glitchTransition();
                     setTimeout(loadChallenge, 1000);
                 } else {
-                    setTimeout(fakeHackedConsoleEffect, 1000);
+                    setTimeout(() => {
+                        document.getElementById("secret-button").classList.remove("hidden");
+                    }, 1000);
                 }
             } else {
                 console.log(challenges[currentChallenge].failMessage);
             }
         }
 
-        function glitchTransition() {
-            const puzzleContainer = document.getElementById("puzzle-container");
-            puzzleContainer.classList.add("glitch");
-            setTimeout(() => puzzleContainer.classList.remove("glitch"), 500);
-        }
-
-        function fakeHackedConsoleEffect() {
-            let terminal = document.getElementById("terminal");
-            terminal.innerHTML = "";
+        function revealSecret() {
+            document.body.innerHTML = "";
+            document.body.style.background = "black";
+            const terminal = document.createElement("div");
+            terminal.id = "terminal";
+            document.body.appendChild(terminal);
             let messages = [
+                "SYSTEM REBOOTING...",
+                "SECURITY BREACH DETECTED...",
+                "ATTEMPTING OVERRIDE...",
                 "ACCESS GRANTED...",
                 "DECODING MESSAGE...",
-                "Welcome to the secret mission!",
-                "Your gift code is: STEAM-GIFT-CODE-HERE",
                 "Every Saturday is our hangout time now! Whether it be coding, playing music, or just creating together! ❤️"
             ];
             let index = 0;
@@ -161,18 +151,21 @@
                 if (index < messages.length) {
                     let line = document.createElement("div");
                     line.textContent = messages[index];
-                    line.classList.add("big-reveal");
+                    line.classList.add("secret-promise");
                     terminal.appendChild(line);
                     index++;
                     setTimeout(typeMessage, 1000);
-                } else {
-                    launchConfetti();
                 }
             }
             typeMessage();
         }
+
+        function glitchTransition() {
+            const puzzleContainer = document.getElementById("puzzle-container");
+            puzzleContainer.classList.add("glitch");
+            setTimeout(() => puzzleContainer.classList.remove("glitch"), 500);
+        }
     </script>
 </body>
 </html>
-
 
