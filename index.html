@@ -28,8 +28,8 @@
             margin: 50px auto;
             width: 60%;
             padding: 20px;
-            background: white;
-            color: black;
+            background: black;
+            color: lime;
             box-shadow: 0px 0px 10px gray;
             border-radius: 10px;
         }
@@ -39,6 +39,10 @@
             font-size: 18px;
             margin: 10px;
             cursor: pointer;
+            background: lime;
+            color: black;
+            border: 2px solid lime;
+            border-radius: 5px;
         }
         @keyframes confetti {
             0% { transform: translateY(0) rotate(0deg); opacity: 1; }
@@ -66,8 +70,14 @@
     <div id="puzzle-container" class="hidden">
         <h2>First Challenge: Who invented modern programming?</h2>
         <p>Type the answer in the console (F12 > Console).</p>
+        <p>Example: answer('Bob Ross')</p>
     </div>
-    
+    <div id="puzzle2-container" class="hidden">
+        <h2>Second Challenge: Tonight we dance around the flame,<br>Then we get to play the spirit game.<br>Which band performs this song?</h2>
+        <p>Type the answer in the console (F12 > Console).</p>
+        <p>Example: answer('Bob Ross')</p>
+    </div>
+
     <script>
         function fakeStartupEffect() {
             let messages = [
@@ -79,7 +89,6 @@
             ];
             let terminal = document.getElementById("terminal");
             let index = 0;
-            
             function typeMessage() {
                 if (index < messages.length) {
                     let line = document.createElement("div");
@@ -95,57 +104,21 @@
         function startGame() {
             document.getElementById("game-container").classList.add("hidden");
             document.getElementById("puzzle-container").classList.remove("hidden");
-            console.log("Welcome to your first challenge!");
-            console.log("Who invented modern programming?");
-            console.log("Type your answer using: answer('Ada Lovelace')");
         }
 
         function answer(input) {
-            if (input.toLowerCase() === "ada lovelace") {
-                console.log("Correct! Moving to the next stage...");
+            input = input.toLowerCase();
+            if (input === "ada lovelace") {
+                console.log("Correct! Moving on to the next challenge...");
+                document.getElementById("puzzle-container").classList.add("hidden");
+                document.getElementById("puzzle2-container").classList.remove("hidden");
+            } else if (input === "tally hall") {
+                console.log("Correct! You did it!");
                 fakeHackedConsoleEffect();
             } else {
-                console.log("Incorrect. Try again!");
-            }
-        }
-
-        function fakeHackedConsoleEffect() {
-            let terminal = document.getElementById("terminal");
-            terminal.innerHTML = "";
-            let messages = [
-                "ACCESS GRANTED...",
-                "DECODING MESSAGE...",
-                "Welcome to the secret mission!",
-                "Every Saturday is our hangout time now! Whether it be coding, playing music, or just creating together! ❤️"
-            ];
-            let index = 0;
-            
-            function typeMessage() {
-                if (index < messages.length) {
-                    let line = document.createElement("div");
-                    line.textContent = messages[index];
-                    terminal.appendChild(line);
-                    index++;
-                    setTimeout(typeMessage, 1000);
-                } else {
-                    launchConfetti();
-                }
-            }
-            typeMessage();
-        }
-
-        function launchConfetti() {
-            for (let i = 0; i < 100; i++) {
-                let confettiPiece = document.createElement("div");
-                confettiPiece.className = "confetti";
-                confettiPiece.style.left = Math.random() * 100 + "vw";
-                confettiPiece.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-                confettiPiece.style.animationDuration = Math.random() * 3 + 2 + "s";
-                document.body.appendChild(confettiPiece);
-                setTimeout(() => confettiPiece.remove(), 5000);
+                console.log("Incorrect! Try again.");
             }
         }
     </script>
 </body>
 </html>
-
