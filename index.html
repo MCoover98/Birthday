@@ -112,12 +112,19 @@ Which band performs this song?",
         }
 
         function answer(input) {
-            if (input.toLowerCase() === challenges[currentChallenge].answer) {
-                console.log("Correct! Moving on to the next challenge...");
-                currentChallenge++;
-                if (currentChallenge < challenges.length) {
-                    loadChallenge();
-                } else {
+    if (input.toLowerCase() === challenges[currentChallenge].answer) {
+        console.log("Correct! Moving on to the next challenge...");
+        currentChallenge++;
+        if (currentChallenge < challenges.length) {
+            loadChallenge();
+        } else {
+            console.log("All challenges complete! Initiating final sequence...");
+            setTimeout(fakeHackedConsoleEffect, 1000); // Add delay for effect
+        }
+    } else {
+        console.log(challenges[currentChallenge].failMessage);
+    }
+} else {
                     fakeHackedConsoleEffect();
                 }
             } else {
