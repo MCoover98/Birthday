@@ -23,6 +23,12 @@
             white-space: pre-wrap;
             text-align: left;
             border: 2px solid lime;
+            animation: flicker 1s infinite alternate;
+        }
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
         }
         #game-container {
             margin: 50px auto;
@@ -30,8 +36,9 @@
             padding: 20px;
             background: black;
             color: lime;
-            box-shadow: 0px 0px 10px gray;
+            box-shadow: 0px 0px 10px lime;
             border-radius: 10px;
+            border: 2px solid lime;
         }
         .hidden { display: none; }
         button {
@@ -39,10 +46,13 @@
             font-size: 18px;
             margin: 10px;
             cursor: pointer;
+            background: black;
+            color: lime;
+            border: 2px solid lime;
+        }
+        button:hover {
             background: lime;
             color: black;
-            border: 2px solid lime;
-            border-radius: 5px;
         }
         @keyframes confetti {
             0% { transform: translateY(0) rotate(0deg); opacity: 1; }
@@ -67,27 +77,64 @@
         <p>Solve the puzzles to unlock your gift!</p>
         <button onclick="startGame()">Start Game</button>
     </div>
-    <div id="puzzle-container" class="hidden">
-        <h2>First Challenge: Who invented modern programming?</h2>
-        <p>Type the answer in the console (F12 > Console).</p>
-        <p>Example: answer('Bob Ross')</p>
-    </div>
-    <div id="puzzle2-container" class="hidden">
-        <h2>Second Challenge: Tonight we dance around the flame,<br>Then we get to play the spirit game.<br>Which band performs this song?</h2>
-        <p>Type the answer in the console (F12 > Console).</p>
-        <p>Example: answer('Bob Ross')</p>
-    </div>
-
+    <div id="puzzle-container" class="hidden"></div>
     <script>
-        function fakeStartupEffect() {
-            let messages = [
-                "SYSTEM BOOTING...",
-                "LOADING SECURE GAME ENVIRONMENT...",
-                "SECURITY BREACH DETECTED...",
-                "ATTEMPTING OVERRIDE...",
-                "ACCESS GRANTED."
-            ];
+        let currentChallenge = 0;
+        const challenges = [
+            {
+                question: "First Challenge: Who invented modern programming?",
+                answer: "ada lovelace",
+                failMessage: "Not quite! Think about the funky yellow guy!"
+            },
+            {
+                question: "Second Challenge: Tonight we dance around the flame, Then we get to play the spirit game.
+Which band performs this song?",
+                answer: "tally hall",
+                failMessage: "Not quite! Think about the funky yellow guy!"
+            },
+            {
+                question: "Third Challenge: The electric bass revolutionized modern music and became a staple in many genres. Who is credited with inventing the first electric bass guitar?",
+                answer: "leo fender",
+                failMessage: "Not quite! Think of a legendary guitar company founder!"
+            }
+        ];
+
+        function startGame() {
+            document.getElementById("game-container").classList.add("hidden");
+            loadChallenge();
+        }
+
+        function loadChallenge() {
+            const puzzleContainer = document.getElementById("puzzle-container");
+            puzzleContainer.innerHTML = `<h2>${challenges[currentChallenge].question}</h2>
+            <p>Type the answer in the console (F12 > Console). Example: answer('Bob Ross')</p>`;
+            puzzleContainer.classList.remove("hidden");
+        }
+
+        function answer(input) {
+            if (input.toLowerCase() === challenges[currentChallenge].answer) {
+                console.log("Correct! Moving on to the next challenge...");
+                currentChallenge++;
+                if (currentChallenge < challenges.length) {
+                    loadChallenge();
+                } else {
+                    fakeHackedConsoleEffect();
+                }
+            } else {
+                console.log(challenges[currentChallenge].failMessage);
+            }
+        }
+
+        function fakeHackedConsoleEffect() {
             let terminal = document.getElementById("terminal");
+            terminal.innerHTML = "";
+            let messages = [
+                "ACCESS GRANTED...",
+                "DECODING MESSAGE...",
+                "Welcome to the secret mission!",
+                "Your gift code is: STEAM-GIFT-CODE-HERE",
+                "Every Saturday is our hangout time now! Whether it be coding, playing music, or just creating together! ❤️"
+            ];
             let index = 0;
             function typeMessage() {
                 if (index < messages.length) {
@@ -96,27 +143,22 @@
                     terminal.appendChild(line);
                     index++;
                     setTimeout(typeMessage, 1000);
+                } else {
+                    launchConfetti();
                 }
             }
             typeMessage();
         }
 
-        function startGame() {
-            document.getElementById("game-container").classList.add("hidden");
-            document.getElementById("puzzle-container").classList.remove("hidden");
-        }
-
-        function answer(input) {
-            input = input.toLowerCase();
-            if (input === "ada lovelace") {
-                console.log("Correct! Moving on to the next challenge...");
-                document.getElementById("puzzle-container").classList.add("hidden");
-                document.getElementById("puzzle2-container").classList.remove("hidden");
-            } else if (input === "tally hall") {
-                console.log("Correct! You did it!");
-                fakeHackedConsoleEffect();
-            } else {
-                console.log("Incorrect! Try again.");
+        function launchConfetti() {
+            for (let i = 0; i < 100; i++) {
+                let confettiPiece = document.createElement("div");
+                confettiPiece.className = "confetti";
+                confettiPiece.style.left = Math.random() * 100 + "vw";
+                confettiPiece.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                confettiPiece.style.animationDuration = Math.random() * 3 + 2 + "s";
+                document.body.appendChild(confettiPiece);
+                setTimeout(() => confettiPiece.remove(), 5000);
             }
         }
     </script>
