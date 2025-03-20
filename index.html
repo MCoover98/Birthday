@@ -97,7 +97,16 @@
             document.getElementById("puzzle-container").classList.remove("hidden");
             console.log("Welcome to your first challenge!");
             console.log("Who invented modern programming?");
-            console.log("Type your answer below: (e.g., 'Ada Lovelace')");
+            console.log("Type your answer using: answer('Ada Lovelace')");
+        }
+
+        function answer(input) {
+            if (input.toLowerCase() === "ada lovelace") {
+                console.log("Correct! Moving to the next stage...");
+                fakeHackedConsoleEffect();
+            } else {
+                console.log("Incorrect. Try again!");
+            }
         }
 
         function fakeHackedConsoleEffect() {
@@ -139,3 +148,4 @@
     </script>
 </body>
 </html>
+
