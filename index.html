@@ -74,13 +74,13 @@
 <body onload="fakeStartupEffect()">
     <div id="terminal"></div>
     <div id="game-container">
-        <h1>🚀✨ Welcome to Your Birthday Coding Quest! ✨🚀</h1><p>Get ready for an epic coding journey filled with riddles, glitches, and secrets! Let the adventure begin!</p>
+        <h1>💥🔥🚀✨ Welcome to Your Birthday Coding Quest! ✨🚀🔥💥</h1><p>Brace yourself for a legendary quest! Solve the riddles, crack the code, and unlock the secrets that await! Are you ready to conquer this adventure?</p>
         <p>Solve the puzzles to unlock your gift!</p>
         <button onclick="startGame()">Start Game</button>
     </div>
     <div id="puzzle-container" class="hidden"></div>
     <div id="secret-button" class="hidden">
-        <h2>YOUR GIFT CODE: STEAM-GIFT-CODE-HERE</h2>
+        <h2>YOUR GIFT CODE: XXXXXX-XXXXXX-XXXXXX</h2>
         <button onclick="revealSecret()">Unlock the Secret Message</button>
     </div>
     <script>
@@ -124,7 +124,7 @@
             terminal.id = "terminal";
             document.body.appendChild(terminal);
 
-            terminal.innerHTML = "<h2>ACCESS GRANTED...<br>DECRYPTING MESSAGE...<br>WELCOME TO THE SECRET MISSION.<br></h2>";
+            terminal.innerHTML = "<h2 style='color: lime; text-align: center; font-size: 24px;'>ACCESS GRANTED...<br>DECRYPTING MESSAGE...<br>WELCOME TO THE SECRET MISSION.<br>PREPARING THE FINAL REVEAL...</h2>";
 
             function matrixEffect() {
                 let line = document.createElement("div");
@@ -141,7 +141,7 @@
                     terminal.innerHTML = "";
                     let promiseMessage = document.createElement("div");
                     promiseMessage.className = "secret-promise";
-                    promiseMessage.textContent = "Every Saturday is our hangout time now! Whether it be coding, playing music, or just creating together!";
+                    promiseMessage.innerHTML = "<span style='font-size: 36px; color: lime; font-weight: bold;'>Every Saturday is our hangout time now!</span><br>Whether it be coding, playing music, or just creating together!";
                     document.body.appendChild(promiseMessage);
                 }, 3000);
             }, 3000);
