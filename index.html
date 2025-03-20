@@ -54,14 +54,6 @@
             background: lime;
             color: black;
         }
-        @keyframes glitch {
-            0% { transform: skew(0deg); }
-            20% { transform: skew(10deg); }
-            40% { transform: skew(-10deg); }
-            60% { transform: skew(5deg); }
-            80% { transform: skew(-5deg); }
-            100% { transform: skew(0deg); }
-        }
         .glitch {
             animation: glitch 0.5s ease-in-out;
         }
@@ -73,7 +65,7 @@
         }
         .secret-promise {
             font-size: 32px;
-            color: red;
+            color: lime;
             animation: flicker 0.1s infinite alternate;
             margin-top: 50px;
         }
@@ -93,21 +85,9 @@
     <script>
         let currentChallenge = 0;
         const challenges = [
-            {
-                question: "First Challenge: Who invented modern programming?",
-                answer: "ada lovelace",
-                failMessage: "Not quite! Think about the funky yellow guy!"
-            },
-            {
-                question: "Second Challenge: Tonight we dance around the flame, Then we get to play the spirit game.\nWhich band performs this song?",
-                answer: "tally hall",
-                failMessage: "Not quite! Think about the funky yellow guy!"
-            },
-            {
-                question: "Third Challenge: The electric bass revolutionized modern music and became a staple in many genres. Who is credited with inventing the first electric bass guitar?",
-                answer: "leo fender",
-                failMessage: "Not quite! Think of a legendary guitar company founder!"
-            }
+            { question: "First Challenge: Who invented modern programming?", answer: "ada lovelace", failMessage: "Not quite! Think about the funky yellow guy!" },
+            { question: "Second Challenge: Tonight we dance around the flame, Then we get to play the spirit game.\nWhich band performs this song?", answer: "tally hall", failMessage: "Not quite! Think about the funky yellow guy!" },
+            { question: "Third Challenge: The electric bass revolutionized modern music and became a staple in many genres. Who is credited with inventing the first electric bass guitar?", answer: "leo fender", failMessage: "Not quite! Think of a legendary guitar company founder!" }
         ];
 
         function startGame() {
@@ -143,6 +123,8 @@
             terminal.id = "terminal";
             document.body.appendChild(terminal);
 
+            terminal.innerHTML = "<h2>ACCESS GRANTED...<br>DECRYPTING MESSAGE...<br>WELCOME TO THE SECRET MISSION.<br>YOUR GIFT CODE: STEAM-GIFT-CODE-HERE</h2>";
+
             function matrixEffect() {
                 let line = document.createElement("div");
                 line.textContent = Math.random().toString(2).substring(2, 32);
@@ -152,9 +134,8 @@
                 setTimeout(matrixEffect, 30);
             }
 
-            matrixEffect();
             setTimeout(() => {
-                terminal.innerHTML = "<h2>YOUR GIFT CODE: STEAM-GIFT-CODE-HERE</h2>";
+                matrixEffect();
                 setTimeout(() => {
                     terminal.innerHTML = "";
                     let promiseMessage = document.createElement("div");
@@ -162,7 +143,7 @@
                     promiseMessage.textContent = "Every Saturday is our hangout time now! Whether it be coding, playing music, or just creating together! ❤️";
                     document.body.appendChild(promiseMessage);
                 }, 3000);
-            }, 5000);
+            }, 3000);
         }
 
         function glitchTransition() {
@@ -173,4 +154,3 @@
     </script>
 </body>
 </html>
-
