@@ -68,6 +68,21 @@
             opacity: 0.7;
             animation: confetti 3s linear infinite;
         }
+        @keyframes glitch {
+            0% { transform: skew(0deg); }
+            20% { transform: skew(10deg); }
+            40% { transform: skew(-10deg); }
+            60% { transform: skew(5deg); }
+            80% { transform: skew(-5deg); }
+            100% { transform: skew(0deg); }
+        }
+        .glitch {
+            animation: glitch 0.5s ease-in-out;
+        }
+        .big-reveal {
+            font-size: 24px;
+            animation: flicker 0.05s infinite alternate;
+        }
     </style>
 </head>
 <body onload="fakeStartupEffect()">
@@ -105,7 +120,7 @@
 
         function loadChallenge() {
             const puzzleContainer = document.getElementById("puzzle-container");
-            puzzleContainer.innerHTML = `<h2>${challenges[currentChallenge].question}</h2>
+            puzzleContainer.innerHTML = `<h2 class='glitch'>${challenges[currentChallenge].question}</h2>
             <p>Type the answer in the console (F12 > Console). Example: answer('Bob Ross')</p>`;
             puzzleContainer.classList.remove("hidden");
         }
@@ -115,14 +130,20 @@
                 console.log("Correct! Moving on to the next challenge...");
                 currentChallenge++;
                 if (currentChallenge < challenges.length) {
-                    loadChallenge();
+                    glitchTransition();
+                    setTimeout(loadChallenge, 1000);
                 } else {
-                    console.log("All challenges complete! Initiating final sequence...");
                     setTimeout(fakeHackedConsoleEffect, 1000);
                 }
             } else {
                 console.log(challenges[currentChallenge].failMessage);
             }
+        }
+
+        function glitchTransition() {
+            const puzzleContainer = document.getElementById("puzzle-container");
+            puzzleContainer.classList.add("glitch");
+            setTimeout(() => puzzleContainer.classList.remove("glitch"), 500);
         }
 
         function fakeHackedConsoleEffect() {
@@ -140,6 +161,7 @@
                 if (index < messages.length) {
                     let line = document.createElement("div");
                     line.textContent = messages[index];
+                    line.classList.add("big-reveal");
                     terminal.appendChild(line);
                     index++;
                     setTimeout(typeMessage, 1000);
@@ -149,19 +171,8 @@
             }
             typeMessage();
         }
-
-        function launchConfetti() {
-            for (let i = 0; i < 100; i++) {
-                let confettiPiece = document.createElement("div");
-                confettiPiece.className = "confetti";
-                confettiPiece.style.left = Math.random() * 100 + "vw";
-                confettiPiece.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-                confettiPiece.style.animationDuration = Math.random() * 3 + 2 + "s";
-                document.body.appendChild(confettiPiece);
-                setTimeout(() => confettiPiece.remove(), 5000);
-            }
-        }
     </script>
 </body>
 </html>
+
 
