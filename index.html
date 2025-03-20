@@ -65,6 +65,12 @@
         .glitch {
             animation: glitch 0.5s ease-in-out;
         }
+        .binary-code {
+            font-family: monospace;
+            color: lime;
+            opacity: 0.8;
+            white-space: nowrap;
+        }
         .secret-promise {
             font-size: 32px;
             color: red;
@@ -110,14 +116,12 @@
 
         function loadChallenge() {
             const puzzleContainer = document.getElementById("puzzle-container");
-            puzzleContainer.innerHTML = `<h2 class='glitch'>${challenges[currentChallenge].question}</h2>
-            <p>Type the answer in the console (F12 > Console). Example: answer('Bob Ross')</p>`;
+            puzzleContainer.innerHTML = `<h2 class='glitch'>${challenges[currentChallenge].question}</h2>`;
             puzzleContainer.classList.remove("hidden");
         }
 
         function answer(input) {
             if (input.toLowerCase() === challenges[currentChallenge].answer) {
-                console.log("Correct! Moving on to the next challenge...");
                 currentChallenge++;
                 if (currentChallenge < challenges.length) {
                     glitchTransition();
@@ -134,30 +138,28 @@
 
         function revealSecret() {
             document.body.innerHTML = "";
-            document.body.style.background = "black";
             const terminal = document.createElement("div");
             terminal.id = "terminal";
             document.body.appendChild(terminal);
-            let messages = [
-                "SYSTEM REBOOTING...",
-                "SECURITY BREACH DETECTED...",
-                "ATTEMPTING OVERRIDE...",
-                "ACCESS GRANTED...",
-                "DECODING MESSAGE...",
-                "Every Saturday is our hangout time now! Whether it be coding, playing music, or just creating together! ❤️"
-            ];
-            let index = 0;
-            function typeMessage() {
-                if (index < messages.length) {
-                    let line = document.createElement("div");
-                    line.textContent = messages[index];
-                    line.classList.add("secret-promise");
-                    terminal.appendChild(line);
-                    index++;
-                    setTimeout(typeMessage, 1000);
-                }
+
+            function matrixEffect() {
+                let line = document.createElement("div");
+                line.textContent = Math.random().toString(2).substring(2, 32);
+                line.className = "binary-code";
+                terminal.appendChild(line);
+                if (terminal.childElementCount > 30) terminal.removeChild(terminal.firstChild);
+                setTimeout(matrixEffect, 50);
             }
-            typeMessage();
+
+            setTimeout(() => {
+                matrixEffect();
+                setTimeout(() => {
+                    terminal.innerHTML = "YOUR GIFT CODE: STEAM-GIFT-CODE-HERE";
+                    setTimeout(() => {
+                        terminal.innerHTML = "Every Saturday is our hangout time now! Whether it be coding, playing music, or just creating together! ❤️";
+                    }, 3000);
+                }, 3000);
+            }, 1000);
         }
 
         function glitchTransition() {
@@ -168,4 +170,3 @@
     </script>
 </body>
 </html>
-
