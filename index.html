@@ -75,6 +75,7 @@
             font-size: 32px;
             color: red;
             animation: flicker 0.1s infinite alternate;
+            margin-top: 50px;
         }
     </style>
 </head>
@@ -137,44 +138,31 @@
         }
 
         function revealSecret() {
-    document.body.innerHTML = "";
-    const terminal = document.createElement("div");
-    terminal.id = "terminal";
-    document.body.appendChild(terminal);
+            document.body.innerHTML = "";
+            const terminal = document.createElement("div");
+            terminal.id = "terminal";
+            document.body.appendChild(terminal);
 
-    function matrixEffect() {
-        let line = document.createElement("div");
-        line.textContent = Math.random().toString(2).substring(2, 32);
-        line.className = "binary-code";
-        terminal.appendChild(line);
-        if (terminal.childElementCount > 30) terminal.removeChild(terminal.firstChild);
-        setTimeout(matrixEffect, 50);
-    }
+            function matrixEffect() {
+                let line = document.createElement("div");
+                line.textContent = Math.random().toString(2).substring(2, 32);
+                line.className = "binary-code";
+                terminal.appendChild(line);
+                if (terminal.childElementCount > 50) terminal.removeChild(terminal.firstChild);
+                setTimeout(matrixEffect, 30);
+            }
 
-    setTimeout(() => {
-        matrixEffect();
-        setTimeout(() => {
-            terminal.innerHTML = "<h2>YOUR GIFT CODE: STEAM-GIFT-CODE-HERE</h2>";
+            matrixEffect();
             setTimeout(() => {
-                terminal.innerHTML = "";
-                let promiseMessage = document.createElement("div");
-                promiseMessage.className = "secret-promise";
-                promiseMessage.textContent = "Every Saturday is our hangout time now! Whether it be coding, playing music, or just creating together! ❤️";
-                document.body.appendChild(promiseMessage);
-            }, 3000);
-        }, 3000);
-    }, 1000);
-}
-
-            setTimeout(() => {
-                matrixEffect();
+                terminal.innerHTML = "<h2>YOUR GIFT CODE: STEAM-GIFT-CODE-HERE</h2>";
                 setTimeout(() => {
-                    terminal.innerHTML = "YOUR GIFT CODE: STEAM-GIFT-CODE-HERE";
-                    setTimeout(() => {
-                        terminal.innerHTML = "Every Saturday is our hangout time now! Whether it be coding, playing music, or just creating together! ❤️";
-                    }, 3000);
+                    terminal.innerHTML = "";
+                    let promiseMessage = document.createElement("div");
+                    promiseMessage.className = "secret-promise";
+                    promiseMessage.textContent = "Every Saturday is our hangout time now! Whether it be coding, playing music, or just creating together! ❤️";
+                    document.body.appendChild(promiseMessage);
                 }, 3000);
-            }, 1000);
+            }, 5000);
         }
 
         function glitchTransition() {
