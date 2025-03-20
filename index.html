@@ -84,6 +84,26 @@
         <button onclick="revealSecret()">Unlock the Secret Message</button>
     </div>
     <script>
+        function fakeStartupEffect() {
+            const terminal = document.getElementById("terminal");
+            const startupMessages = [
+                "BOOTING SYSTEM...",
+                "LOADING SOURCE CODE ENVIRONMENT...",
+                "SECURE DEVICE DETECTED...",
+                "ATTEMPTING DECRYPTION...",
+                "ACCESS GRANTED. WELCOME BACK.",
+            ];
+            let index = 0;
+            function typeMessage() {
+                if (index < startupMessages.length) {
+                    terminal.innerHTML += startupMessages[index] + "\n";
+                    index++;
+                    setTimeout(typeMessage, 500);
+                }
+            }
+            typeMessage();
+        }
+
         let currentChallenge = 0;
         const challenges = [
             { question: "First Challenge: Who invented modern programming?", answer: "ada lovelace", failMessage: "Not quite! Think about the funky yellow guy!" },
@@ -116,35 +136,6 @@
             } else {
                 console.log(challenges[currentChallenge].failMessage);
             }
-        }
-
-        function revealSecret() {
-            document.body.innerHTML = "";
-            const terminal = document.createElement("div");
-            terminal.id = "terminal";
-            document.body.appendChild(terminal);
-
-            terminal.innerHTML = "<h2 style='color: lime; text-align: center; font-size: 24px;'>ACCESS GRANTED...<br>DECRYPTING MESSAGE...<br>WELCOME TO THE SECRET MISSION.<br>PREPARING THE FINAL REVEAL...</h2>";
-
-            function matrixEffect() {
-                let line = document.createElement("div");
-                line.textContent = Math.random().toString(2).substring(2, 32);
-                line.className = "binary-code";
-                terminal.appendChild(line);
-                if (terminal.childElementCount > 50) terminal.removeChild(terminal.firstChild);
-                setTimeout(matrixEffect, 30);
-            }
-
-            setTimeout(() => {
-                matrixEffect();
-                setTimeout(() => {
-                    terminal.innerHTML = "";
-                    let promiseMessage = document.createElement("div");
-                    promiseMessage.className = "secret-promise";
-                    promiseMessage.innerHTML = "<span style='font-size: 36px; color: lime; font-weight: bold;'>Every Saturday is our hangout time now!</span><br>Whether it be coding, playing music, or just creating together!";
-                    document.body.appendChild(promiseMessage);
-                }, 3000);
-            }, 3000);
         }
 
         function glitchTransition() {
