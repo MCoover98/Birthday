@@ -80,6 +80,7 @@
     </div>
     <div id="puzzle-container" class="hidden"></div>
     <div id="secret-button" class="hidden">
+        <h2>YOUR GIFT CODE: STEAM-GIFT-CODE-HERE</h2>
         <button onclick="revealSecret()">Unlock the Secret Message</button>
     </div>
     <script>
@@ -123,7 +124,7 @@
             terminal.id = "terminal";
             document.body.appendChild(terminal);
 
-            terminal.innerHTML = "<h2>ACCESS GRANTED...<br>DECRYPTING MESSAGE...<br>WELCOME TO THE SECRET MISSION.<br>YOUR GIFT CODE: STEAM-GIFT-CODE-HERE</h2>";
+            terminal.innerHTML = "<h2>ACCESS GRANTED...<br>DECRYPTING MESSAGE...<br>WELCOME TO THE SECRET MISSION.<br></h2>";
 
             function matrixEffect() {
                 let line = document.createElement("div");
@@ -154,3 +155,4 @@
     </script>
 </body>
 </html>
+
