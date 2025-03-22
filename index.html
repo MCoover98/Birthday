@@ -104,6 +104,18 @@
             typeMessage();
         }
 
+        function revealSecret() {
+            const promiseMessage = "Every Saturday is our hangout time now! Whether it be coding, playing music, or just creating together!";
+            const binaryEffect = document.createElement("div");
+            binaryEffect.classList.add("binary-code");
+            binaryEffect.textContent = "01110101 01101110 01101100 01101111 01100011 01101011 01101001 01101110 01100111...";
+            document.body.appendChild(binaryEffect);
+            setTimeout(() => {
+                binaryEffect.textContent = promiseMessage;
+                binaryEffect.classList.add("secret-promise");
+            }, 3000);
+        }
+
         let currentChallenge = 0;
         const challenges = [
             { question: "First Challenge: Who invented modern programming?", answer: "ada lovelace", failMessage: "Not quite! Think about the funky yellow guy!" },
@@ -146,4 +158,3 @@
     </script>
 </body>
 </html>
-
